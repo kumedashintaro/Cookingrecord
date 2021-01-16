@@ -20,7 +20,18 @@ class MainActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
         viewModel.getPost()
         viewModel.myResponse.observe(this, Observer { response ->
-            Log.d("Response", response.cooking_records.toString())
+            if (response.isSuccessful) {
+                //            Log.d("Response", response.cooking_records.toString())
+//            Log.d("Response", response.pagination.toString())
+
+                Log.d("Response", response.body()!!.cooking_records[0].comment)
+                Log.d("Response", response.body()!!.cooking_records[0].image_url)
+                Log.d("Response", response.body()!!.pagination.limit.toString())
+                Log.d("Response", response.body()!!.pagination.offset.toString())
+                Log.d("Response", response.body()!!.pagination.total.toString())
+            } else {
+                Log.d("Response", response.errorBody().toString())
+            }
         })
     }
 }

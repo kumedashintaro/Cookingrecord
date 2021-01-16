@@ -1,10 +1,11 @@
 package kumeda.cookingrecord.api
 
 import kumeda.cookingrecord.model.Post
+import retrofit2.Response
 import retrofit2.http.GET
 
 interface CookingRecordsApi {
 
     @GET("cooking_records")
-    suspend fun getPost(): Post
+    suspend fun getPost(): Response<Post>
 }
