@@ -9,3 +9,5 @@ interface CookingRecordsApi {
     @GET("cooking_records")
     suspend fun getPost(): Response<Post>
 }
+
+// TODO 指定の範囲取り出しの為GET

@@ -1,8 +1,8 @@
 package kumeda.cookingrecord
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import kumeda.cookingrecord.repository.Repository
@@ -21,14 +21,20 @@ class MainActivity : AppCompatActivity() {
         viewModel.getPost()
         viewModel.myResponse.observe(this, Observer { response ->
             if (response.isSuccessful) {
-                //            Log.d("Response", response.cooking_records.toString())
-//            Log.d("Response", response.pagination.toString())
-
-                Log.d("Response", response.body()!!.cooking_records[0].comment)
-                Log.d("Response", response.body()!!.cooking_records[0].image_url)
                 Log.d("Response", response.body()!!.pagination.limit.toString())
                 Log.d("Response", response.body()!!.pagination.offset.toString())
                 Log.d("Response", response.body()!!.pagination.total.toString())
+
+                val list = response.body()!!.cooking_records
+                list.forEach {
+                    Log.d("Response", it.comment)
+                    Log.d("Response", it.recorded_at)
+//                    Log.d("Response", response.body()!!.cooking_records[0].comment)
+//                    Log.d("Response", response.body()!!.cooking_records[0].image_url)
+//                    Log.d("Response", response.body()!!.cooking_records[1].comment)
+//                    Log.d("Response", response.body()!!.cooking_records[1].image_url)
+                }
+
             } else {
                 Log.d("Response", response.errorBody().toString())
             }
