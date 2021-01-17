@@ -5,15 +5,21 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import kotlinx.android.synthetic.main.activity_main.*
+import kumeda.cookingrecord.adapter.ListAdapter
 import kumeda.cookingrecord.repository.Repository
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var viewModel: MainViewModel
+    private val listAdapter by lazy { ListAdapter() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        setupRecyclerview()
 
         val repository = Repository()
         val viewModelFactory = MainViewModelFactory(repository)
@@ -30,22 +36,16 @@ class MainActivity : AppCompatActivity() {
             if (response.isSuccessful) {
                 // TODO body()がnullだった場合の処理 or nullにしないようにする
 
-                Log.d("Response Limit", response.body()!!.pagination.limit.toString())
-                Log.d("Response offset", response.body()!!.pagination.offset.toString())
-                Log.d("Response total", response.body()!!.pagination.total.toString())
-                Log.d("Response", response.body()!!.cooking_records.toString())
-
-                val list = response.body()!!.cooking_records
-                list.forEach {
-                    Log.d("Response", it.comment)
-                    Log.d("Response", it.recorded_at)
-                }
+                response.body()?.cooking_records.let { listAdapter.setData(it!!) }
 
             } else {
                 Log.d("Response", response.errorBody().toString())
             }
         })
+    }
 
-
+    private fun setupRecyclerview() {
+        recyclerView.adapter = listAdapter
+        recyclerView.layoutManager = LinearLayoutManager(this)
     }
 }
