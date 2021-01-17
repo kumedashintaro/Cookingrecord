@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.row_layout.view.*
 import kumeda.cookingrecord.R
 import kumeda.cookingrecord.model.CookingRecord
@@ -25,6 +26,7 @@ class ListAdapter : RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+        Picasso.get().load(myList[position].image_url).into(holder.itemView.cooking_view)
         holder.itemView.comment_text.text = myList[position].comment
         holder.itemView.recipe_type_text.text = myList[position].recipe_type
         holder.itemView.recorded_at_text.text = myList[position].recorded_at
