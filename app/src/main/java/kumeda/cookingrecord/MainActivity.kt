@@ -18,26 +18,34 @@ class MainActivity : AppCompatActivity() {
         val repository = Repository()
         val viewModelFactory = MainViewModelFactory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
-        viewModel.getPost()
-        viewModel.myResponse.observe(this, Observer { response ->
+
+//        viewModel.getPost()
+
+        val offset = "6"
+        val limit = "6"
+
+        viewModel.getPostSelect(Integer.parseInt(offset), Integer.parseInt(limit))
+
+        viewModel.myResponseSelect.observe(this, Observer { response ->
             if (response.isSuccessful) {
-                Log.d("Response", response.body()!!.pagination.limit.toString())
-                Log.d("Response", response.body()!!.pagination.offset.toString())
-                Log.d("Response", response.body()!!.pagination.total.toString())
+                // TODO body()がnullだった場合の処理 or nullにしないようにする
+
+                Log.d("Response Limit", response.body()!!.pagination.limit.toString())
+                Log.d("Response offset", response.body()!!.pagination.offset.toString())
+                Log.d("Response total", response.body()!!.pagination.total.toString())
+                Log.d("Response", response.body()!!.cooking_records.toString())
 
                 val list = response.body()!!.cooking_records
                 list.forEach {
                     Log.d("Response", it.comment)
                     Log.d("Response", it.recorded_at)
-//                    Log.d("Response", response.body()!!.cooking_records[0].comment)
-//                    Log.d("Response", response.body()!!.cooking_records[0].image_url)
-//                    Log.d("Response", response.body()!!.cooking_records[1].comment)
-//                    Log.d("Response", response.body()!!.cooking_records[1].image_url)
                 }
 
             } else {
                 Log.d("Response", response.errorBody().toString())
             }
         })
+
+
     }
 }
