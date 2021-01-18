@@ -28,8 +28,8 @@ class MainActivity : AppCompatActivity() {
 
 //        viewModel.getPost()
 
-        val offset = "6"
-        val limit = "6"
+        val offset = "0"
+        val limit = "20"
 
         viewModel.getPostSelect(Integer.parseInt(offset), Integer.parseInt(limit))
 

@@ -11,9 +11,9 @@
         android:id="@+id/comment_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="パンチのきいた辛味が印象的です。"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cooking_view" />
 
@@ -21,7 +21,7 @@
         android:id="@+id/recipe_type_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="main_dish"
         app:layout_constraintStart_toStartOf="parent"
@@ -32,10 +32,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:text="2018-04-21 14:04:22"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recipe_type_text" />
+        app:layout_constraintStart_toEndOf="@+id/recipe_type_text"
+        app:layout_constraintTop_toTopOf="@+id/recipe_type_text" />
 
     <ImageView
         android:id="@+id/cooking_view"
