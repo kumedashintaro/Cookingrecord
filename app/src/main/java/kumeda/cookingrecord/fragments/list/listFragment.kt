@@ -1,60 +1,60 @@
 package kumeda.cookingrecord.fragments.list
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
+import kotlinx.android.synthetic.main.fragment_list.view.*
+import kumeda.cookingrecord.MainViewModel
+import kumeda.cookingrecord.MainViewModelFactory
 import kumeda.cookingrecord.R
+import kumeda.cookingrecord.adapter.ListAdapter
+import kumeda.cookingrecord.repository.Repository
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [listFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class listFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private lateinit var viewModel: MainViewModel
+    private val listAdapter by lazy { ListAdapter() }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_list, container, false)
+
+        val view = inflater.inflate(R.layout.fragment_list, container, false)
+        val recyclerView = view.recyclerView
+        val layoutManager = GridLayoutManager(activity, 2, GridLayoutManager.VERTICAL, false)
+        recyclerView.adapter = listAdapter
+        recyclerView.layoutManager = layoutManager
+
+        val repository = Repository()
+        val viewModelFactory = MainViewModelFactory(repository)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
+
+//        viewModel.getPost()
+
+        val offset = "0"
+        val limit = "20"
+
+        viewModel.getPostSelect(Integer.parseInt(offset), Integer.parseInt(limit))
+
+        viewModel.myResponseSelect.observe(viewLifecycleOwner, Observer { response ->
+            if (response.isSuccessful) {
+                // TODO body()がnullだった場合の処理 or nullにしないようにする
+
+                response.body()?.cooking_records.let { listAdapter.setData(it!!) }
+
+            } else {
+                Log.d("Response", response.errorBody().toString())
+            }
+        })
+
+        return view
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment listFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            listFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }
 }
