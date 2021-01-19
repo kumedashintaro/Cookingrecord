@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/listFragment"
-        android:name="kumeda.cookingrecord.fragments.list.listFragment"
+        android:name="kumeda.cookingrecord.fragments.list.ListFragment"
         android:label="fragment_list"
         tools:layout="@layout/fragment_list">
         <action
@@ -16,11 +16,14 @@
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
-        android:name="kumeda.cookingrecord.fragments.detail.detailFragment"
+        android:name="kumeda.cookingrecord.fragments.detail.DetailFragment"
         android:label="fragment_detail"
         tools:layout="@layout/fragment_detail">
         <action
             android:id="@+id/action_detailFragment_to_listFragment"
             app:destination="@id/listFragment" />
+        <argument
+            android:name="currentCookingRecod"
+            app:argType="kumeda.cookingrecord.model.CookingRecord" />
     </fragment>
 </navigation>

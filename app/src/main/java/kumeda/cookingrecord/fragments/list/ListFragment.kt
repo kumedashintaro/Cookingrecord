@@ -16,7 +16,7 @@ import kumeda.cookingrecord.R
 import kumeda.cookingrecord.adapter.ListAdapter
 import kumeda.cookingrecord.repository.Repository
 
-class listFragment : Fragment() {
+class ListFragment : Fragment() {
 
     private lateinit var viewModel: MainViewModel
     private val listAdapter by lazy { ListAdapter() }
