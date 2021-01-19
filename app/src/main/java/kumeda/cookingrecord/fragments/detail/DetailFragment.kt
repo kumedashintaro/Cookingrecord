@@ -6,7 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
-import kotlinx.android.synthetic.main.fragment_detail.view.*
+import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.fragment_detail.*
 import kumeda.cookingrecord.R
 
 
@@ -18,11 +19,13 @@ class DetailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_detail, container, false)
+        return inflater.inflate(R.layout.fragment_detail, container, false)
+    }
 
-        view.hello.setText(args.currentCookingRecod.comment)
-
-        return view
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        Picasso.get().load(args.currentCookingRecod.image_url).into(detail_cooking_view)
+        //view.hello.setText(args.currentCookingRecod.comment)
     }
 }
 
