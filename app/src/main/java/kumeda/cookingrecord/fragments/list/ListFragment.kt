@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import kotlinx.android.synthetic.main.fragment_list.view.*
 import kumeda.cookingrecord.MainViewModel
@@ -53,6 +54,10 @@ class ListFragment : Fragment() {
                 Log.d("Response", response.errorBody().toString())
             }
         })
+
+        view.floatingActionButton.setOnClickListener {
+            findNavController().navigate(R.id.action_listFragment_to_searchFragment)
+        }
 
         return view
     }
