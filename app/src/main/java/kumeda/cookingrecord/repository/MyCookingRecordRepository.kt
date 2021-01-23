@@ -8,7 +8,11 @@ class MyCookingRecordRepository(private val myCookingRecordDao: MyCookingRecordD
 
     val readAllData: LiveData<List<MyCookingRecord>> = myCookingRecordDao.readAllData()
 
-    suspend fun addMyCookingRecord(myCookingRecord: MyCookingRecord) {
+    suspend fun addMyCookingRecord(myCookingRecord: List<MyCookingRecord>) {
         myCookingRecordDao.addMyCookingRecord(myCookingRecord)
+    }
+
+    suspend fun deleteAllData() {
+        myCookingRecordDao.deleteAllData()
     }
 }

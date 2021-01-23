@@ -13,13 +13,16 @@ import androidx.recyclerview.widget.GridLayoutManager
 import kotlinx.android.synthetic.main.fragment_list.view.*
 import kumeda.cookingrecord.MainViewModel
 import kumeda.cookingrecord.MainViewModelFactory
+import kumeda.cookingrecord.MyCookingRecordViewModel
 import kumeda.cookingrecord.R
 import kumeda.cookingrecord.adapter.ListAdapter
+import kumeda.cookingrecord.model.MyCookingRecord
 import kumeda.cookingrecord.repository.Repository
 
 class ListFragment : Fragment() {
 
     private lateinit var viewModel: MainViewModel
+    private lateinit var myCookingRecordViewModel: MyCookingRecordViewModel
     private val listAdapter by lazy { ListAdapter() }
 
     override fun onCreateView(
@@ -36,23 +39,51 @@ class ListFragment : Fragment() {
         val repository = Repository()
         val viewModelFactory = MainViewModelFactory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
+        myCookingRecordViewModel = ViewModelProvider(this).get(MyCookingRecordViewModel::class.java)
 
 //        viewModel.getPost()
 
         val offset = "0"
-        val limit = "20"
+        val limit = "5"
 
         viewModel.getPostSelect(Integer.parseInt(offset), Integer.parseInt(limit))
 
         viewModel.myResponseSelect.observe(viewLifecycleOwner, Observer { response ->
             if (response.isSuccessful) {
-                // TODO body()がnullだった場合の処理 or nullにしないようにする
 
-                response.body()?.cooking_records.let { listAdapter.setData(it!!) }
+                //データを全削除
+                myCookingRecordViewModel.deleteAllUData()
+                Log.d("ListFragment", " データベース全削除")
 
+                // Databaseに保存する
+                if (response.body()?.cooking_records != null) {
+                    val size = response.body()?.cooking_records!!.size
+                    for (i in 0 until size) {
+                        val myComment = response.body()?.cooking_records!![i].comment
+                        val myImageUrl = response.body()?.cooking_records!![i].image_url
+                        val myRecipeType = response.body()?.cooking_records!![i].recipe_type
+                        val myRecordedAt = response.body()?.cooking_records!![i].recorded_at
+
+                        val myCookingRecord = MyCookingRecord(
+                            0,
+                            myComment,
+                            myImageUrl,
+                            myRecipeType,
+                            myRecordedAt
+                        )
+                        //データを追加する
+                        myCookingRecordViewModel.addMyCookingRecord(listOf(myCookingRecord))
+                        Log.d("ListFragment", " データベースに追加された")
+                    }
+                }
+                //response.body()?.cooking_records.let { listAdapter.setData(it!!) }
             } else {
                 Log.d("Response", response.errorBody().toString())
             }
+        })
+
+        myCookingRecordViewModel.readAllData.observe(viewLifecycleOwner, Observer {
+            listAdapter.setData(it!!)
         })
 
         view.floatingActionButton.setOnClickListener {
@@ -61,5 +92,4 @@ class ListFragment : Fragment() {
 
         return view
     }
-
 }

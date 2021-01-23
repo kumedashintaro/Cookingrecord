@@ -9,11 +9,12 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.row_layout.view.*
 import kumeda.cookingrecord.R
 import kumeda.cookingrecord.fragments.list.ListFragmentDirections
-import kumeda.cookingrecord.model.CookingRecord
+import kumeda.cookingrecord.model.MyCookingRecord
 
 class ListAdapter : RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
 
-    private var myList = emptyList<CookingRecord>()
+    //private var myList = emptyList<CookingRecord>()
+    private var myList = emptyList<MyCookingRecord>()
 
     inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
@@ -29,10 +30,10 @@ class ListAdapter : RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val currentItem = myList[position]
-        Picasso.get().load(myList[position].image_url).into(holder.itemView.cooking_view)
-        holder.itemView.comment_text.text = myList[position].comment
-        holder.itemView.recipe_type_text.text = myList[position].recipe_type
-        holder.itemView.recorded_at_text.text = myList[position].recorded_at
+        Picasso.get().load(myList[position].myImageUrl).into(holder.itemView.cooking_view)
+        holder.itemView.comment_text.text = myList[position].myComment
+        holder.itemView.recipe_type_text.text = myList[position].myRecipeType
+        holder.itemView.recorded_at_text.text = myList[position].myRecordedAt
 
         holder.itemView.rowLayout.setOnClickListener {
             val action = ListFragmentDirections.actionListFragmentToDetailFragment(currentItem)
@@ -40,7 +41,7 @@ class ListAdapter : RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
         }
     }
 
-    fun setData(newList: List<CookingRecord>) {
+    fun setData(newList: List<MyCookingRecord>) {
         myList = newList
         notifyDataSetChanged()
     }

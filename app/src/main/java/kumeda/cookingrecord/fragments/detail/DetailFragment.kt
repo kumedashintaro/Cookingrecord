@@ -24,7 +24,7 @@ class DetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Picasso.get().load(args.currentCookingRecod.image_url).into(detail_cooking_view)
+        Picasso.get().load(args.currentCookingRecod.myImageUrl).into(detail_cooking_view)
         //view.hello.setText(args.currentCookingRecod.comment)
     }
 }
