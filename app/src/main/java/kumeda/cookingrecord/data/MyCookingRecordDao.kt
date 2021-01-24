@@ -11,7 +11,7 @@ import kumeda.cookingrecord.model.MyCookingRecord
 interface MyCookingRecordDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun addMyCookingRecord(myCookingRecord: List<MyCookingRecord>)
+    suspend fun addMyCookingRecord(myCookingRecord: MyCookingRecord)
 
     @Query("SELECT * FROM my_cooking_record_table ORDER BY id ASC")
     fun readAllData(): LiveData<List<MyCookingRecord>>

@@ -72,7 +72,7 @@ class ListFragment : Fragment() {
                             myRecordedAt
                         )
                         //データを追加する
-                        myCookingRecordViewModel.addMyCookingRecord(listOf(myCookingRecord))
+                        myCookingRecordViewModel.addMyCookingRecord(myCookingRecord)
                         Log.d("ListFragment", " データベースに追加された")
                     }
                 }

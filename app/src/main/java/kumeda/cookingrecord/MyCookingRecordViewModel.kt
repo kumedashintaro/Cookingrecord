@@ -23,7 +23,7 @@ class MyCookingRecordViewModel(application: Application) : AndroidViewModel(appl
         readAllData = repository.readAllData
     }
 
-    fun addMyCookingRecord(myCookingRecord: List<MyCookingRecord>) {
+    fun addMyCookingRecord(myCookingRecord: MyCookingRecord) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.addMyCookingRecord(myCookingRecord)
         }
