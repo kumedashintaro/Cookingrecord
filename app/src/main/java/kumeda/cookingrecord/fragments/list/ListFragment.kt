@@ -77,15 +77,17 @@ class ListFragment : Fragment() {
                             Log.d("ListFragment", " データベースに追加された")
                     }
                 }
+                Thread.sleep(5000)
+
+                myCookingRecordViewModel.readAllData.observe(viewLifecycleOwner, Observer {
+                    listAdapter.setData(it!!)
+                })
                 //response.body()?.cooking_records.let { listAdapter.setData(it!!) }
             } else {
                 Log.d("Response", response.errorBody().toString())
             }
         })
 
-        myCookingRecordViewModel.readAllData.observe(viewLifecycleOwner, Observer {
-            listAdapter.setData(it!!)
-        })
 
         view.floatingActionButton.setOnClickListener {
             findNavController().navigate(R.id.action_listFragment_to_searchFragment)
@@ -116,14 +118,7 @@ class ListFragment : Fragment() {
                 }
                 listAdapter.setData(selectRecipeList)
             })
-
-
-
         }
-
-
-
-
         return view
     }
 
