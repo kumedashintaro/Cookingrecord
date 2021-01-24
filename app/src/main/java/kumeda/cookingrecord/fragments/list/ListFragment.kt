@@ -25,6 +25,8 @@ class ListFragment : Fragment() {
     private lateinit var myCookingRecordViewModel: MyCookingRecordViewModel
     private val listAdapter by lazy { ListAdapter() }
 
+    private var selectRecipeList = emptyList<MyCookingRecord>()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -45,7 +47,6 @@ class ListFragment : Fragment() {
 
         val offset = "0"
         val limit = "5"
-
         viewModel.getPostSelect(Integer.parseInt(offset), Integer.parseInt(limit))
 
         viewModel.myResponseSelect.observe(viewLifecycleOwner, Observer { response ->
@@ -72,8 +73,8 @@ class ListFragment : Fragment() {
                             myRecordedAt
                         )
                         //データを追加する
-                        myCookingRecordViewModel.addMyCookingRecord(myCookingRecord)
-                        Log.d("ListFragment", " データベースに追加された")
+                            myCookingRecordViewModel.addMyCookingRecord(myCookingRecord)
+                            Log.d("ListFragment", " データベースに追加された")
                     }
                 }
                 //response.body()?.cooking_records.let { listAdapter.setData(it!!) }
@@ -90,6 +91,40 @@ class ListFragment : Fragment() {
             findNavController().navigate(R.id.action_listFragment_to_searchFragment)
         }
 
+
+        view.floatingActionButton2.setOnClickListener {
+            myCookingRecordViewModel.readAllData.observe(viewLifecycleOwner, Observer {
+
+                val size = it.size
+                for (i in 0 until size) {
+                    val myComment = it[i].myComment
+                    val myImageUrl = it[i].myImageUrl
+                    val myRecipeType = it[i].myRecipeType
+                    val myRecordedAt = it[i].myRecordedAt
+
+                    val myCookingRecord = MyCookingRecord(
+                        0,
+                        myComment,
+                        myImageUrl,
+                        myRecipeType,
+                        myRecordedAt
+                    )
+                    if (myRecipeType == "main_dish") {
+                        selectRecipeList = selectRecipeList + myCookingRecord
+                        Log.d("ListFragment", " RecipeTypeを絞ったよ")
+                    }
+                }
+                listAdapter.setData(selectRecipeList)
+            })
+
+
+
+        }
+
+
+
+
         return view
     }
+
 }

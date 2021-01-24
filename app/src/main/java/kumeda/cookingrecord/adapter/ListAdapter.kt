@@ -42,8 +42,8 @@ class ListAdapter : RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
     }
 
     fun setData(newList: List<MyCookingRecord>) {
-        myList = newList
-        notifyDataSetChanged()
+            myList = newList
+            notifyDataSetChanged()
     }
 
 }
