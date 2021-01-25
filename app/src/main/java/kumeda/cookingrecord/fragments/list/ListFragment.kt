@@ -44,7 +44,7 @@ class ListFragment : Fragment() {
         viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
 
         //viewModel.getPost()
-        
+
         viewModel.getPostSelect(Integer.parseInt(offset), Integer.parseInt(limit))
 
         viewModel.myResponseSelect.observe(viewLifecycleOwner, Observer { response ->
