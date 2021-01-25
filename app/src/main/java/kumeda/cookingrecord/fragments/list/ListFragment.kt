@@ -15,12 +15,18 @@ import kumeda.cookingrecord.MainViewModel
 import kumeda.cookingrecord.MainViewModelFactory
 import kumeda.cookingrecord.R
 import kumeda.cookingrecord.adapter.ListAdapter
+import kumeda.cookingrecord.model.MyCookingRecord
 import kumeda.cookingrecord.repository.Repository
+import kumeda.cookingrecord.utils.Parameter.limit
+import kumeda.cookingrecord.utils.Parameter.offset
+import kumeda.cookingrecord.utils.Parameter.total
 
 class ListFragment : Fragment() {
 
     private lateinit var viewModel: MainViewModel
     private val listAdapter by lazy { ListAdapter() }
+
+    private var selectRecipeList = emptyList<MyCookingRecord>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,18 +43,37 @@ class ListFragment : Fragment() {
         val viewModelFactory = MainViewModelFactory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
 
-//        viewModel.getPost()
-
-        val offset = "0"
-        val limit = "20"
-
+        //viewModel.getPost()
+        
         viewModel.getPostSelect(Integer.parseInt(offset), Integer.parseInt(limit))
 
         viewModel.myResponseSelect.observe(viewLifecycleOwner, Observer { response ->
             if (response.isSuccessful) {
-                // TODO body()がnullだった場合の処理 or nullにしないようにする
+                //配列を初期化
+                selectRecipeList = emptyList<MyCookingRecord>()
 
-                response.body()?.cooking_records.let { listAdapter.setData(it!!) }
+                total = response.body()?.pagination?.total.toString()
+
+                val size = response.body()?.cooking_records!!.size
+                for (i in 0 until size) {
+                    val myComment = response.body()?.cooking_records!![i].comment
+                    val myImageUrl = response.body()?.cooking_records!![i].image_url
+                    val myRecipeType = response.body()?.cooking_records!![i].recipe_type
+                    val myRecordedAt = response.body()?.cooking_records!![i].recorded_at
+
+                    val myCookingRecord = MyCookingRecord(
+                        myComment,
+                        myImageUrl,
+                        myRecipeType,
+                        myRecordedAt
+                    )
+                    //データを追加する
+                    selectRecipeList = selectRecipeList + myCookingRecord
+                    Log.d("ListFragment", " データベースに追加された")
+                }
+
+                listAdapter.setData(selectRecipeList)
+                //response.body()?.cooking_records.let { listAdapter.setData(it!!) }
 
             } else {
                 Log.d("Response", response.errorBody().toString())
