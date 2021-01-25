@@ -27,7 +27,7 @@
             app:destination="@id/listFragment" />
         <argument
             android:name="currentCookingRecod"
-            app:argType="kumeda.cookingrecord.model.CookingRecord" />
+            app:argType="kumeda.cookingrecord.model.MyCookingRecord" />
     </fragment>
     <dialog
         android:id="@+id/searchFragment"
