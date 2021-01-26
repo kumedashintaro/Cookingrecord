@@ -32,7 +32,6 @@ class ListAdapter : RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val currentItem = myList[position]
         Picasso.get().load(myList[position].myImageUrl).into(holder.itemView.cooking_view)
-        holder.itemView.comment_text.text = myList[position].myComment
         holder.itemView.recipe_type_text.text = myList[position].myRecipeType
         holder.itemView.recorded_at_text.text = FormateryyyyMMdd.df.format(myList[position].myRecordedAt)
 
