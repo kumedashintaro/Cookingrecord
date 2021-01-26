@@ -10,6 +10,7 @@ import kotlinx.android.synthetic.main.row_layout.view.*
 import kumeda.cookingrecord.R
 import kumeda.cookingrecord.fragments.list.ListFragmentDirections
 import kumeda.cookingrecord.model.MyCookingRecord
+import kumeda.cookingrecord.utils.FormateryyyyMMdd
 
 class ListAdapter : RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
 
@@ -33,7 +34,7 @@ class ListAdapter : RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
         Picasso.get().load(myList[position].myImageUrl).into(holder.itemView.cooking_view)
         holder.itemView.comment_text.text = myList[position].myComment
         holder.itemView.recipe_type_text.text = myList[position].myRecipeType
-        holder.itemView.recorded_at_text.text = myList[position].myRecordedAt
+        holder.itemView.recorded_at_text.text = FormateryyyyMMdd.df.format(myList[position].myRecordedAt)
 
         holder.itemView.rowLayout.setOnClickListener {
             val action = ListFragmentDirections.actionListFragmentToDetailFragment(currentItem)

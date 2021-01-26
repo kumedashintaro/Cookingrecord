@@ -24,6 +24,8 @@ import kumeda.cookingrecord.utils.Parameter.offset
 import kumeda.cookingrecord.utils.Parameter.sideDishFlag
 import kumeda.cookingrecord.utils.Parameter.soupFlag
 import kumeda.cookingrecord.utils.Parameter.total
+import kumeda.cookingrecord.utils.toDate
+import java.util.*
 
 class ListFragment : Fragment() {
 
@@ -65,7 +67,7 @@ class ListFragment : Fragment() {
                     val myComment = response.body()?.cooking_records!![i].comment
                     val myImageUrl = response.body()?.cooking_records!![i].image_url
                     val myRecipeType = response.body()?.cooking_records!![i].recipe_type
-                    val myRecordedAt = response.body()?.cooking_records!![i].recorded_at
+                    val myRecordedAt = response.body()?.cooking_records!![i].recorded_at.toDate()!!
 
                     val myCookingRecord = MyCookingRecord(
                         myComment,
