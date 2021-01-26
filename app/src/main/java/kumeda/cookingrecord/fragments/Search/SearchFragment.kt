@@ -5,16 +5,23 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CompoundButton
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.android.material.chip.Chip
 import kotlinx.android.synthetic.main.fragment_list.view.*
 import kotlinx.android.synthetic.main.fragment_search.*
 import kotlinx.android.synthetic.main.fragment_search.view.*
 import kumeda.cookingrecord.R
+import kumeda.cookingrecord.utils.Parameter
 import kumeda.cookingrecord.utils.Parameter.limit
+import kumeda.cookingrecord.utils.Parameter.mainDishFlag
 import kumeda.cookingrecord.utils.Parameter.offset
+import kumeda.cookingrecord.utils.Parameter.sideDishFlag
+import kumeda.cookingrecord.utils.Parameter.soupFlag
 import kumeda.cookingrecord.utils.Parameter.total
+import java.util.*
 
 class SearchFragment : BottomSheetDialogFragment() {
 
@@ -23,13 +30,32 @@ class SearchFragment : BottomSheetDialogFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-
         val view = inflater.inflate(R.layout.fragment_search, container, false)
 
-        view.total_view.setText(total)
+        view.total_view.text = total
         view.limit_number.setText(limit)
         view.offset_number.setText(offset)
+        mainDishFlag = false
+        sideDishFlag = false
+        soupFlag = false
+        
+        view.select_type_chipGroup.main_dish_chip.setOnCheckedChangeListener{ _: CompoundButton, b: Boolean ->
+            mainDishFlag = true
+            sideDishFlag = false
+            soupFlag = false
+        }
+
+        view.select_type_chipGroup.side_dish_chip.setOnCheckedChangeListener{ _: CompoundButton, b: Boolean ->
+            mainDishFlag = false
+            sideDishFlag = true
+            soupFlag = false
+        }
+
+        view.select_type_chipGroup.soup_chip.setOnCheckedChangeListener{ _: CompoundButton, b: Boolean ->
+            mainDishFlag = false
+            sideDishFlag = false
+            soupFlag = true
+        }
 
         view.enter_button.setOnClickListener {
             limit = view.limit_number.text.toString()
@@ -48,7 +74,10 @@ class SearchFragment : BottomSheetDialogFragment() {
                 return@setOnClickListener
             }
 
-            Log.d("SearchFragment", limit)
+            Log.d("SearchFragment_main", mainDishFlag.toString())
+            Log.d("SearchFragment_side", sideDishFlag.toString())
+            Log.d("SearchFragment_soup", soupFlag.toString())
+
             findNavController().navigate(R.id.action_searchFragment_to_listFragment)
         }
         return view

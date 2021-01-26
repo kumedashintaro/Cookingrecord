@@ -18,7 +18,10 @@ import kumeda.cookingrecord.adapter.ListAdapter
 import kumeda.cookingrecord.model.MyCookingRecord
 import kumeda.cookingrecord.repository.Repository
 import kumeda.cookingrecord.utils.Parameter.limit
+import kumeda.cookingrecord.utils.Parameter.mainDishFlag
 import kumeda.cookingrecord.utils.Parameter.offset
+import kumeda.cookingrecord.utils.Parameter.sideDishFlag
+import kumeda.cookingrecord.utils.Parameter.soupFlag
 import kumeda.cookingrecord.utils.Parameter.total
 
 class ListFragment : Fragment() {
@@ -67,13 +70,29 @@ class ListFragment : Fragment() {
                         myRecipeType,
                         myRecordedAt
                     )
-                    //データを追加する
-                    selectRecipeList = selectRecipeList + myCookingRecord
-                    Log.d("ListFragment", " データベースに追加された")
-                }
 
-                listAdapter.setData(selectRecipeList)
-                //response.body()?.cooking_records.let { listAdapter.setData(it!!) }
+                    if (mainDishFlag) {
+                        if (myRecipeType == "main_dish") {
+                            selectRecipeList = selectRecipeList + myCookingRecord
+                            Log.d("ListFragment", "mainDishをセット")
+                        }
+                    } else if (sideDishFlag) {
+                        if (myRecipeType == "side_dish") {
+                            selectRecipeList = selectRecipeList + myCookingRecord
+                            Log.d("ListFragment", "sideDishをセット")
+                        }
+                    } else if (soupFlag) {
+                        if (myRecipeType == "soup") {
+                            selectRecipeList = selectRecipeList + myCookingRecord
+                            Log.d("ListFragment", "soupをセット")
+                        }
+                    } else {
+                        selectRecipeList = selectRecipeList + myCookingRecord
+                        Log.d("ListFragment", "全てセット")
+                    }
+                    listAdapter.setData(selectRecipeList)
+                    //response.body()?.cooking_records.let { listAdapter.setData(it!!) }
+                }
 
             } else {
                 Log.d("Response", response.errorBody().toString())
@@ -83,8 +102,6 @@ class ListFragment : Fragment() {
         view.floatingActionButton.setOnClickListener {
             findNavController().navigate(R.id.action_listFragment_to_searchFragment)
         }
-
         return view
     }
-
 }
