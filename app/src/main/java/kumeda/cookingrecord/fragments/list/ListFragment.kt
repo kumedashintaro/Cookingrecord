@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import kotlinx.android.synthetic.main.fragment_list.*
 import kotlinx.android.synthetic.main.fragment_list.view.*
 import kumeda.cookingrecord.MainViewModel
 import kumeda.cookingrecord.MainViewModelFactory
@@ -56,6 +57,8 @@ class ListFragment : Fragment() {
                 selectRecipeList = emptyList<MyCookingRecord>()
 
                 total = response.body()?.pagination?.total.toString()
+
+                progressBar.visibility = View.GONE
 
                 val size = response.body()?.cooking_records!!.size
                 for (i in 0 until size) {
