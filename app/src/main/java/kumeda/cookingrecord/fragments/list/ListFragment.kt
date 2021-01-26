@@ -67,6 +67,9 @@ class ListFragment : Fragment() {
                     val myComment = response.body()?.cooking_records!![i].comment
                     val myImageUrl = response.body()?.cooking_records!![i].image_url
                     val myRecipeType = response.body()?.cooking_records!![i].recipe_type
+                        .replace("main_dish", "主菜/主食")
+                        .replace("side_dish", "副菜")
+                        .replace("soup", "スープ")
                     val myRecordedAt = response.body()?.cooking_records!![i].recorded_at.toDate()!!
 
                     val myCookingRecord = MyCookingRecord(
@@ -77,17 +80,17 @@ class ListFragment : Fragment() {
                     )
 
                     if (mainDishFlag) {
-                        if (myRecipeType == "main_dish") {
+                        if (myRecipeType == "主菜/主食") {
                             selectRecipeList = selectRecipeList + myCookingRecord
                             Log.d("ListFragment", "mainDishをセット")
                         }
                     } else if (sideDishFlag) {
-                        if (myRecipeType == "side_dish") {
+                        if (myRecipeType == "副菜") {
                             selectRecipeList = selectRecipeList + myCookingRecord
                             Log.d("ListFragment", "sideDishをセット")
                         }
                     } else if (soupFlag) {
-                        if (myRecipeType == "soup") {
+                        if (myRecipeType == "スープ") {
                             selectRecipeList = selectRecipeList + myCookingRecord
                             Log.d("ListFragment", "soupをセット")
                         }
