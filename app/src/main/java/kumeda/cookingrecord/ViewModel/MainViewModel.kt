@@ -1,4 +1,4 @@
-package kumeda.cookingrecord
+package kumeda.cookingrecord.ViewModel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,15 +10,7 @@ import retrofit2.Response
 
 class MainViewModel(private val repository: Repository) : ViewModel() {
 
-    val myResponse: MutableLiveData<Response<Post>> = MutableLiveData()
     val myResponseSelect: MutableLiveData<Response<Post>> = MutableLiveData()
-
-    fun getPost() {
-        viewModelScope.launch {
-            val response = repository.getPost()
-            myResponse.value = response
-        }
-    }
 
     fun getPostSelect(offset: Int, limit: Int) {
         viewModelScope.launch {

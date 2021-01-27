@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
         <item name="windowNoTitle">true</item>
         <item name="android:navigationBarColor">#f5f5f5</item>
         <item name="android:windowLightNavigationBar">true</item>
@@ -10,4 +10,11 @@
         <item name="colorPrimaryDark">#d2b48c</item>
         <item name="colorAccent">#d2b48c</item>
     </style>
+
+    <style name="CustomChipStyle" parent="Widget.MaterialComponents.Chip.Filter">
+    <item name="chipBackgroundColor">@color/chip_background_color</item>
+    <item name="android:textColor">@color/chip_text_color</item>
+    <item name="checkedIconTint">@color/white</item>
+    </style>
+
 </resources>

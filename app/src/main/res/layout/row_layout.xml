@@ -3,39 +3,28 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/rowLayout"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="2dp"
     android:orientation="vertical">
-
-    <TextView
-        android:id="@+id/comment_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="パンチのきいた辛味が印象的です。"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cooking_view" />
 
     <TextView
         android:id="@+id/recipe_type_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:text="main_dish"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/comment_text" />
+        app:layout_constraintTop_toBottomOf="@+id/cooking_view" />
 
     <TextView
         android:id="@+id/recorded_at_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="2018-04-21 14:04:22"
-        app:layout_constraintStart_toEndOf="@+id/recipe_type_text"
-        app:layout_constraintTop_toTopOf="@+id/recipe_type_text" />
+        android:text="2018-04-21"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recipe_type_text" />
 
     <ImageView
         android:id="@+id/cooking_view"

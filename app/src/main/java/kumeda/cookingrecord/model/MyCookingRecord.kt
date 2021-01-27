@@ -1,16 +1,13 @@
 package kumeda.cookingrecord.model
 
 import android.os.Parcelable
-import androidx.room.Entity
-import androidx.room.PrimaryKey
 import kotlinx.android.parcel.Parcelize
+import java.util.*
 
 @Parcelize
-@Entity(tableName = "my_cooking_record_table")
-class MyCookingRecord(
-    @PrimaryKey(autoGenerate = true) val id: Int,
+class MyCookingRecord (
     val myComment: String,
     val myImageUrl: String,
     val myRecipeType: String,
-    val myRecordedAt: String
-) : Parcelable
+    val myRecordedAt: Date
+): Parcelable
