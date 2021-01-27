@@ -92,7 +92,7 @@ class SearchFragment : BottomSheetDialogFragment() {
             }
 
             if (offset.toInt() >= total.toInt()){
-                Toast.makeText(requireContext(), "オフセット数を${total}より少なくして下さい", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "最新の投稿から表示させない数を${total}より少なくして下さい", Toast.LENGTH_SHORT).show()
                 resetOffsetNumber()
                 return@setOnClickListener
             }
