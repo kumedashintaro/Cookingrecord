@@ -6,10 +6,6 @@ import retrofit2.Response
 
 class Repository {
 
-    suspend fun getPost(): Response<Post> {
-        return RetrofitInstance.api.getPost()
-    }
-
     suspend fun getPostSelect(offset: Int, limit: Int): Response<Post> {
         return RetrofitInstance.api.getPostSelect(offset, limit)
     }
