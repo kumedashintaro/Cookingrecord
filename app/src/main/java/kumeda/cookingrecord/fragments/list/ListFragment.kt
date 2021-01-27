@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import kotlinx.android.synthetic.main.fragment_list.*
 import kotlinx.android.synthetic.main.fragment_list.view.*
+import kotlinx.android.synthetic.main.fragment_search.*
 import kumeda.cookingrecord.MainViewModel
 import kumeda.cookingrecord.MainViewModelFactory
 import kumeda.cookingrecord.R
@@ -23,6 +24,7 @@ import kumeda.cookingrecord.utils.Parameter.mainDishFlag
 import kumeda.cookingrecord.utils.Parameter.offset
 import kumeda.cookingrecord.utils.Parameter.sideDishFlag
 import kumeda.cookingrecord.utils.Parameter.soupFlag
+import kumeda.cookingrecord.utils.Parameter.splitNumber
 import kumeda.cookingrecord.utils.Parameter.total
 import kumeda.cookingrecord.utils.toDate
 import java.util.*
@@ -41,7 +43,7 @@ class ListFragment : Fragment() {
 
         val view = inflater.inflate(R.layout.fragment_list, container, false)
         val recyclerView = view.recyclerView
-        val layoutManager = GridLayoutManager(activity, 2, GridLayoutManager.VERTICAL, false)
+        val layoutManager = GridLayoutManager(activity, splitNumber.toInt(), GridLayoutManager.VERTICAL, false)
         recyclerView.adapter = listAdapter
         recyclerView.layoutManager = layoutManager
 
