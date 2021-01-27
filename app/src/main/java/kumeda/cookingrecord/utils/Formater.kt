@@ -26,3 +26,9 @@ class FormateryyyyMMdd {
         val df = SimpleDateFormat("yyyy-MM-dd")
     }
 }
+
+class FormateryyyyMMddHHmmss {
+    companion object {
+        val df = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+    }
+}

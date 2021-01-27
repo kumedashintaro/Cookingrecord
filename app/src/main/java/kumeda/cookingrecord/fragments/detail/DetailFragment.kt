@@ -8,7 +8,10 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_detail.*
+import kotlinx.android.synthetic.main.fragment_detail.view.*
 import kumeda.cookingrecord.R
+import kumeda.cookingrecord.utils.FormateryyyyMMdd
+import kumeda.cookingrecord.utils.FormateryyyyMMddHHmmss
 
 
 class DetailFragment : Fragment() {
@@ -25,7 +28,9 @@ class DetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Picasso.get().load(args.currentCookingRecod.myImageUrl).into(detail_cooking_view)
-        //view.hello.setText(args.currentCookingRecod.comment)
+        view.detail_comment.text = args.currentCookingRecod.myComment
+        view.detail_recipe_type.text = args.currentCookingRecod.myRecipeType
+        view.detail_recorded_at.text = FormateryyyyMMddHHmmss.df.format(args.currentCookingRecod.myRecordedAt)
     }
 }
 
