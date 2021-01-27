@@ -15,7 +15,6 @@ import kumeda.cookingrecord.utils.FormateryyyyMMdd
 
 class ListAdapter : RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
 
-    //private var myList = emptyList<CookingRecord>()
     private var myList = emptyList<MyCookingRecord>()
 
     inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
