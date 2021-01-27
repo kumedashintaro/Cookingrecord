@@ -1,9 +1,11 @@
 package kumeda.cookingrecord.utils
 
+import android.annotation.SuppressLint
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
+@SuppressLint("SimpleDateFormat")
 fun String.toDate(pattern: String = "yyyy-MM-dd HH:mm:ss"): Date? {
     val sdFormat = try {
         SimpleDateFormat(pattern)
@@ -20,15 +22,16 @@ fun String.toDate(pattern: String = "yyyy-MM-dd HH:mm:ss"): Date? {
     return date
 }
 
-
 class FormateryyyyMMdd {
     companion object {
+        @SuppressLint("SimpleDateFormat")
         val df = SimpleDateFormat("yyyy-MM-dd")
     }
 }
 
 class FormateryyyyMMddHHmmss {
     companion object {
+        @SuppressLint("SimpleDateFormat")
         val df = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
     }
 }
