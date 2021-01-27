@@ -122,7 +122,7 @@ class SearchFragment : BottomSheetDialogFragment() {
     }
 
     private fun resetLimittNumber(){
-        limit = "10"
+        limit = total
         view?.limit_number?.setText(limit)
     }
 }

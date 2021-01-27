@@ -62,6 +62,10 @@ class ListFragment : Fragment() {
 
                 total = response.body()?.pagination?.total.toString()
 
+                if (limit.toInt() > total.toInt()) {
+                    limit = total
+                }
+
                 progressBar.visibility = View.GONE
 
                 val size = response.body()?.cooking_records!!.size
