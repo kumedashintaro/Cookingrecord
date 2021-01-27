@@ -23,7 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="の料理が保存されています"
+        android:text="の料理記録が保存されています"
         app:layout_constraintBottom_toBottomOf="@+id/total_view"
         app:layout_constraintStart_toEndOf="@+id/total_view" />
 
