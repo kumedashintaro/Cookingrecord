@@ -1,4 +1,4 @@
-package kumeda.cookingrecord
+package kumeda.cookingrecord.ViewModel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

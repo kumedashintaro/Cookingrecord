@@ -12,9 +12,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import kotlinx.android.synthetic.main.fragment_list.*
 import kotlinx.android.synthetic.main.fragment_list.view.*
-import kotlinx.android.synthetic.main.fragment_search.*
-import kumeda.cookingrecord.MainViewModel
-import kumeda.cookingrecord.MainViewModelFactory
+import kumeda.cookingrecord.ViewModel.MainViewModel
+import kumeda.cookingrecord.ViewModel.MainViewModelFactory
 import kumeda.cookingrecord.R
 import kumeda.cookingrecord.adapter.ListAdapter
 import kumeda.cookingrecord.model.MyCookingRecord
@@ -27,7 +26,6 @@ import kumeda.cookingrecord.utils.Parameter.soupFlag
 import kumeda.cookingrecord.utils.Parameter.splitNumber
 import kumeda.cookingrecord.utils.Parameter.total
 import kumeda.cookingrecord.utils.toDate
-import java.util.*
 
 class ListFragment : Fragment() {
 
@@ -47,7 +45,8 @@ class ListFragment : Fragment() {
         recyclerView.layoutManager = layoutManager
 
         val repository = Repository()
-        val viewModelFactory = MainViewModelFactory(repository)
+        val viewModelFactory =
+            MainViewModelFactory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
         viewModel.getPostSelect(Integer.parseInt(offset), Integer.parseInt(limit))
         viewModel.myResponseSelect.observe(viewLifecycleOwner, Observer { response ->
