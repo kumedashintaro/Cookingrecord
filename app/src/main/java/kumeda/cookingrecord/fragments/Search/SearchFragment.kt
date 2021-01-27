@@ -71,7 +71,7 @@ class SearchFragment : BottomSheetDialogFragment() {
                 return@setOnClickListener
             }
             if (offset.isEmpty()) {
-                Toast.makeText(requireContext(), "オフセット数が入力されていません", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "最新の投稿から表示させない数が入力されていません", Toast.LENGTH_SHORT).show()
                 resetOffsetNumber()
                 return@setOnClickListener
             }

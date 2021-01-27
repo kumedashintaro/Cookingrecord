@@ -106,7 +106,7 @@ class ListFragment : Fragment() {
                 Log.d("Response", response.errorBody().toString())
             }
         })
-        
+
         view.floatingActionButton.setOnClickListener {
             findNavController().navigate(R.id.action_listFragment_to_searchFragment)
         }
